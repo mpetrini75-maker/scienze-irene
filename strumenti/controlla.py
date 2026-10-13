@@ -1,0 +1,60 @@
+r"""Cancello di collaudo dell'app Scienze di Irene.
+Controlla: ogni file citato nelle pagine esiste; ogni immagine e' usata; il service worker
+elenca tutti i file e nessuno che manchi. Uscita 0 = tutto a posto.
+Uso:  py strumenti\controlla.py
+"""
+import re, sys
+from pathlib import Path
+
+R = Path(__file__).resolve().parent.parent
+errori = []
+pagine = sorted(R.glob("*.html"))
+citati = set()
+for p in pagine:
+    t = p.read_text(encoding="utf-8")
+    for ref in re.findall(r'(?:src|href)="([^"#:]+)"', t):
+        if ref.startswith(("http", "mailto")):
+            continue
+        citati.add(ref)
+        if not (R / ref).exists():
+            errori.append(f"{p.name}: manca {ref}")
+
+immagini = {f.relative_to(R).as_posix() for f in (R / "img").rglob("*") if f.is_file()}
+for i in sorted(immagini - citati):
+    errori.append(f"immagine non usata: {i}")
+
+sw = (R / "service-worker.js").read_text(encoding="utf-8")
+in_sw = set(re.findall(r"'\./([^']+)'", sw))
+for f in in_sw:
+    if not (R / f).exists():
+        errori.append(f"service-worker: elenca {f} che non esiste")
+servono = {p.name for p in pagine} | immagini | {"style.css", "app.js", "alert.js", "allenamento.js", "manifest.json",
+                                                  "icon-180.png", "icon-192.png", "icon-512.png"}
+for f in sorted(servono - in_sw):
+    errori.append(f"service-worker: manca {f}")
+
+# ogni riquadro con titolo (tranne data-no-voce) delle lezioni deve avere la sua registrazione
+n_audio = 0
+for slug in ("viventi", "ecosistemi", "energia", "biomi", "interazioni", "popolazioni", "piano-biologia"):
+    t = (R / f"{slug}.html").read_text(encoding="utf-8")
+    # 11/10/2026: anche i riquadri con altri attributi (es. data-c="pirati") contano
+    cards = re.findall(r'<div class="card"([^>]*)>\s*<h2>', t)
+    cards = [(" data-no-voce" if "data-no-voce" in attr else "",) for attr in cards]
+    for n, (novoce,) in enumerate(cards):
+        if novoce:
+            continue
+        n_audio += 1
+        f = R / "audio" / f"{slug}-{n}.mp3"
+        if not f.exists():
+            errori.append(f"manca audio/{slug}-{n}.mp3 (rilancia strumenti/genera-audio.py)")
+        elif f.stat().st_size < 2000:
+            # 10/10/2026: un 403 del servizio voci aveva lasciato un mp3 da 0 byte e questo controllo
+            # lo dava per buono. Un riquadro registrato pesa sempre decine di KB.
+            errori.append(f"audio/{slug}-{n}.mp3 vuoto o rotto ({f.stat().st_size} byte): rilancia strumenti/genera-audio.py")
+
+print(f"audio attesi {n_audio} · ", end="")
+print(f"pagine {len(pagine)} · immagini {len(immagini)} · file nel service worker {len(in_sw)}")
+for e in errori:
+    print("  !", e)
+print("OK" if not errori else f"{len(errori)} problemi")
+sys.exit(1 if errori else 0)

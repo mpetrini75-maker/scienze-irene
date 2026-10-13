@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scienze di Irene — Percorso</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Scienze di Irene">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#FAF6EE; --inchiostro:#2B2B2B;
+    --accent:#2E7D6B; --accent-scuro:#215A4D;
+    --azzurro:#7FB3C8; --verde:#5BA17A; --giallo:#E0A82E;
+    --ombra:rgba(43,43,43,0.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Lexend',sans-serif;background:var(--crema);color:var(--inchiostro);
+    line-height:1.7;letter-spacing:0.01em;padding:24px 16px 60px;min-height:100vh;}
+  .wrap{max-width:640px;margin:0 auto;}
+  header{text-align:center;margin:20px 0 40px;}
+  .occhiello{font-size:0.95rem;font-weight:600;color:var(--accent-scuro);
+    text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:2.6rem;line-height:1.15;margin-bottom:14px;color:var(--accent);}
+  .sub{font-size:1.1rem;color:#5a5a5a;max-width:460px;margin:0 auto;}
+  h3.sezione{font-size:1.05rem;color:var(--accent-scuro);text-transform:uppercase;letter-spacing:0.1em;margin:28px 0 12px;}
+  .step{display:flex;align-items:stretch;gap:16px;text-decoration:none;color:inherit;
+    background:#fff;border-radius:18px;padding:18px 20px;margin-bottom:16px;
+    box-shadow:0 4px 14px var(--ombra);border:2px solid transparent;
+    transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;}
+  .step:hover{transform:translateY(-3px);box-shadow:0 10px 24px var(--ombra);border-color:var(--accent);}
+  .num{flex-shrink:0;width:54px;height:54px;border-radius:14px;display:flex;align-items:center;
+    justify-content:center;font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;color:#fff;background:var(--accent);}
+  .num.g{background:var(--giallo);}
+  .info{flex:1;min-width:0;}
+  .info h2{font-size:1.2rem;font-weight:600;margin-bottom:2px;}
+  .info p{font-size:0.98rem;color:#666;}
+  .badge{flex-shrink:0;align-self:center;font-size:0.82rem;font-weight:600;
+    padding:6px 12px;border-radius:99px;white-space:nowrap;background:#DDEFE9;color:var(--accent-scuro);}
+  .nota{background:#fff;border-radius:16px;padding:14px 18px;margin:0 0 22px;box-shadow:0 4px 14px var(--ombra);font-size:0.98rem;color:#555;}
+  footer{text-align:center;margin-top:36px;font-size:0.92rem;color:#9a9a9a;}
+  @media (max-width:420px){ .badge{display:none;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="occhiello">Le scienze, un mattoncino alla volta</div>
+    <h1>Il percorso di Scienze</h1>
+    <p class="sub">Biologia e chimica, dal libro Ambiente Biosfera. Uno alla volta, con calma. 🧱🌿</p>
+  </header>
+
+  <div class="nota">🔊 In ogni lezione c'è il tasto <b>Ascolta</b>: puoi farti leggere ogni riquadro a voce.</div>
+
+  <a class="step" href="piano-biologia.html" style="border-color:var(--giallo)">
+    <div class="num g">🎯</div>
+    <div class="info"><h2>Il piano per la verifica di martedì 20</h2><p>Un mattoncino al giorno, da mercoledì a lunedì</p></div>
+    <span class="badge">Vai →</span>
+  </a>
+
+  <h3 class="sezione">🧬 Biologia</h3>
+
+  <a class="step" href="viventi.html">
+    <div class="num">1</div>
+    <div class="info"><h2>La biologia e i viventi</h2><p>Le 8 caratteristiche, i livelli, Redi e Pasteur</p></div>
+    <span class="badge">Vai →</span>
+  </a>
+
+  <a class="step" href="ecosistemi.html">
+    <div class="num">2</div>
+    <div class="info"><h2>Gli ecosistemi</h2><p>Biòtopo e biocenosi, catene alimentari</p></div>
+    <span class="badge">Vai →</span>
+  </a>
+
+  <a class="step" href="energia.html">
+    <div class="num">3</div>
+    <div class="info"><h2>L'energia e i cicli di materia</h2><p>Legge del 10%, piramidi, carbonio, azoto, fosforo</p></div>
+    <span class="badge">Vai →</span>
+  </a>
+
+  <a class="step" href="biomi.html">
+    <div class="num">4</div>
+    <div class="info"><h2>I biomi</h2><p>Dalla tundra al deserto, e poi il mare</p></div>
+    <span class="badge">Vai →</span>
+  </a>
+
+  <a class="step" href="interazioni.html">
+    <div class="num">5</div>
+    <div class="info"><h2>Le interazioni e la competizione</h2><p>Predazione, mimetismo, simbiosi, nicchia</p></div>
+    <span class="badge">Vai →</span>
+  </a>
+
+  <a class="step" href="popolazioni.html">
+    <div class="num">6</div>
+    <div class="info"><h2>Le popolazioni</h2><p>Distribuzione, crescita, strategie K e r</p></div>
+    <span class="badge">Vai →</span>
+  </a>
+
+  <footer>Fatto con cura per Irene 🌿 — un mattoncino alla volta</footer>
+</div>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+</body>
+</html>

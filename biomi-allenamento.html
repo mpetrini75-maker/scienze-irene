@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Scienze di Irene">
+<script src="alert.js"></script>
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<title>I biomi — Allenamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#2E7D6B; --accent-soft:#DDEFE9;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .back{display:inline-block;background:var(--accent-soft);color:var(--accent);text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin:0 8px 14px 0;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.1rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.05rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:0.98rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;text-align:center;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">&larr; Indice</a><a class="back" href="biomi.html">📖 Ripassa la lezione</a>
+  <h1>🏋️ I biomi — Allenamento</h1>
+  <p class="sub">Mattoncino 4 · 3 sezioni · 3 livelli ciascuna 💪</p>
+
+  <div class="card">
+    <h2>🧠 1. Domande</h2>
+    <p class="lead">Scegli la risposta giusta. Puoi riprovare finché non la trovi!</p>
+    <div class="levelbar" id="quiz-level"></div>
+    <div id="quiz-box"></div>
+    <div class="progress" id="quiz-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✅ 2. Vero o falso</h2>
+    <p class="lead">Leggi la frase e tocca Vero o Falso. Dopo ti dico perché.</p>
+    <div class="levelbar" id="vf-level"></div>
+    <div id="vf-box"></div>
+    <div class="progress" id="vf-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 3. Abbina</h2>
+    <p class="lead">Tocca una casella a sinistra, poi la sua coppia a destra. Collega tutte le coppie!</p>
+    <div class="levelbar" id="abbina-level"></div>
+    <div class="match-grid" id="abbina-grid"></div>
+    <div class="progress" id="abbina-prog"></div>
+  </div>
+</div>
+<script>
+window.ALLENAMENTO = {"quiz": [[{"q": "Che cos'è un bioma?", "opts": ["un grande ecosistema", "un tipo di roccia", "un animale"]}, {"q": "Che cosa decide dove si trova un bioma terrestre?", "opts": ["il clima", "la lingua", "il mare"]}, {"q": "In quale bioma ci sono muschi e licheni?", "opts": ["nella tundra", "nella savana", "nella foresta equatoriale"]}, {"q": "Come si chiama il suolo ghiacciato della tundra?", "opts": ["permafrost", "humus", "benthos"]}, {"q": "Che alberi ha la taiga?", "opts": ["conifere sempreverdi", "palme", "baobab"]}], [{"q": "Quale bioma ha la biodiversità più grande?", "opts": ["la foresta equatoriale", "il deserto", "la tundra"]}, {"q": "Dove vivono zebre, elefanti e leoni?", "opts": ["nella savana", "nella taiga", "nella tundra"]}, {"q": "Come si chiamano le piante del deserto, come il cactus?", "opts": ["xerofite", "conifere", "epifite"]}, {"q": "Che vegetazione ha la macchia mediterranea?", "opts": ["arbusti sempreverdi", "solo erba", "muschi"]}, {"q": "Nella foresta temperata gli alberi...", "opts": ["perdono le foglie", "hanno foglie ad ago", "non esistono"]}], [{"q": "Fino a che profondità arriva la zona fotica?", "opts": ["circa 200 metri", "circa 10 metri", "circa 4000 metri"]}, {"q": "Qual è la provincia marina più ricca di vita?", "opts": ["la neritica", "l'oceanica", "l'afotica"]}, {"q": "Chi forma il necton?", "opts": ["gli animali che nuotano", "le alghe trasportate", "i coralli"]}, {"q": "Dove vive il benthos?", "opts": ["sul fondo", "a galla", "nell'aria"]}, {"q": "Fiumi e torrenti sono ecosistemi...", "opts": ["lotici", "lentici", "alluvionali"]}]], "vf": [[{"q": "Lo stesso bioma si può trovare in continenti diversi.", "v": true, "perche": "Basta un clima simile."}, {"q": "Nella tundra fa caldo.", "v": false, "perche": "È gelida, con il permafrost."}, {"q": "Nella taiga vivono alci e lupi.", "v": true, "perche": "Anche cervi e orsi."}, {"q": "Le conifere hanno foglie ad ago.", "v": true, "perche": "Così perdono meno acqua."}, {"q": "Nella taiga le radici sono profonde.", "v": false, "perche": "Sono corte: sotto il suolo è gelato."}], [{"q": "Nella prateria predomina l'erba.", "v": true, "perche": "Con grossi erbivori come i bisonti."}, {"q": "La macchia mediterranea c'è solo in Italia.", "v": false, "perche": "Anche in California, Australia e Cile."}, {"q": "Nella savana piove tutto l'anno.", "v": false, "perche": "La pioggia arriva in una sola stagione."}, {"q": "Esistono anche deserti freddi.", "v": true, "perche": "Ci sono deserti caldi e freddi."}, {"q": "Nella foresta equatoriale fa caldo e piove tutto l'anno.", "v": true, "perche": "Per questo c'è tanta vita."}], [{"q": "Nella zona afotica arriva la luce.", "v": false, "perche": "Afotica vuol dire senza luce."}, {"q": "Il plancton si lascia trasportare dalle correnti.", "v": true, "perche": "Il necton invece nuota."}, {"q": "La provincia oceanica è la più ricca di vita.", "v": false, "perche": "È la neritica, vicino alla costa."}, {"q": "I laghi sono ecosistemi lentici.", "v": true, "perche": "Acqua ferma e profonda."}, {"q": "Le paludi sono ecosistemi alluvionali.", "v": true, "perche": "Acqua bassissima, tanti uccelli migratori."}]], "abbina": [[{"l": "Tundra", "r": "muschi e licheni"}, {"l": "Taiga", "r": "conifere"}, {"l": "Prateria", "r": "erba e bisonti"}, {"l": "Permafrost", "r": "suolo ghiacciato"}, {"l": "Clima", "r": "decide i biomi terrestri"}], [{"l": "Foresta equatoriale", "r": "la più ricca di vita"}, {"l": "Savana", "r": "zebre ed elefanti"}, {"l": "Deserto", "r": "cactus"}, {"l": "Macchia mediterranea", "r": "rosmarino e mirto"}, {"l": "Foresta temperata", "r": "alberi che perdono le foglie"}], [{"l": "Zona fotica", "r": "arriva la luce"}, {"l": "Zona afotica", "r": "buio"}, {"l": "Necton", "r": "nuota"}, {"l": "Benthos", "r": "sul fondo"}, {"l": "Lotici", "r": "fiumi e torrenti"}]]};
+</script>
+<script src="allenamento.js"></script>
+<script>
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./service-worker.js'); }
+</script>
+</body>
+</html>
