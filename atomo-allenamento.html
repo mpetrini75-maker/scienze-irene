@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FAF6EE">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Scienze di Irene">
+<script src="alert.js"></script>
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<title>Com'è fatto l'atomo — Allenamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF6EE; --card:#FFFFFF; --ink:#2F2A24;
+    --accent:#2E7D6B; --accent-soft:#DDEFE9;
+    --green:#3E8E5A; --green-soft:#E2F0E6;
+    --red:#C2492F; --red-soft:#F6E1DB;
+    --blue:#3B6EA5; --blue-soft:#E2ECF5;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:"Lexend","Trebuchet MS",Verdana,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7; letter-spacing:0.3px; padding:24px 14px 60px;}
+  .wrap{max-width:620px;margin:0 auto;}
+  .back{display:inline-block;background:var(--accent-soft);color:var(--accent);text-decoration:none;border-radius:12px;padding:8px 16px;font-size:0.98rem;font-weight:bold;margin:0 8px 14px 0;}
+  h1{color:var(--accent);font-size:1.6rem;text-align:center;margin:0 0 6px;}
+  .sub{text-align:center;color:#8a7f70;margin:0 0 26px;font-size:1rem;}
+  .card{background:var(--card);border-radius:18px;padding:22px 20px;margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.06);border:1px solid #efe7da;}
+  .card h2{margin:0 0 10px;font-size:1.25rem;color:var(--accent);}
+  .card .lead{color:#8a7f70;margin:0 0 12px;font-size:0.97rem;}
+  .levelbar{margin:0 0 12px;}
+  .lvrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.98rem;color:var(--accent);}
+  .lvdots{display:inline-flex;gap:6px;}
+  .lvdot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--bg);border:2px solid var(--accent-soft);color:#b9ad9c;font-size:0.85rem;font-weight:bold;}
+  .lvdot.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+  .ex{margin:14px 0;}
+  .qnum{font-weight:bold;color:var(--accent);}
+  .qtext{font-size:1.1rem;margin:6px 0 8px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{background:var(--bg);border:2px solid var(--accent-soft);
+    border-radius:12px;padding:13px 14px;font-size:1.05rem;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--ink);transition:all .15s;}
+  .opt:hover{border-color:var(--accent);}
+  .opt.correct{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;}
+  .opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+  .feedback{margin-top:10px;font-size:1.02rem;font-weight:bold;min-height:24px;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .progress{text-align:center;font-size:1.05rem;margin:12px 0 0;color:#8a7f70;}
+  .star{font-size:1.4rem;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .match-col{display:flex;flex-direction:column;gap:10px;}
+  .match-btn{background:var(--bg);border:2px solid var(--accent-soft);border-radius:12px;
+    padding:12px;font-size:0.98rem;cursor:pointer;font-family:inherit;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;text-align:center;gap:6px;transition:all .15s;}
+  .match-btn:hover{border-color:var(--accent);}
+  .match-btn.sel{border-color:var(--blue);background:var(--blue-soft);color:var(--blue);font-weight:bold;}
+  .match-btn.done{background:var(--green-soft);border-color:var(--green);color:var(--green);font-weight:bold;cursor:default;opacity:0.85;}
+  .match-btn.flash{border-color:var(--red);background:var(--red-soft);}
+  .restart{display:inline-block;margin:12px auto 0;background:var(--accent);color:#fff;border:none;
+    border-radius:12px;padding:11px 22px;font-size:1rem;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">&larr; Indice</a><a class="back" href="atomo.html">📖 Ripassa la lezione</a>
+  <h1>🏋️ Com'è fatto l'atomo — Allenamento</h1>
+  <p class="sub">Mattoncino 8 · 3 sezioni · 3 livelli ciascuna 💪</p>
+
+  <div class="card">
+    <h2>🧠 1. Domande</h2>
+    <p class="lead">Scegli la risposta giusta. Puoi riprovare finché non la trovi!</p>
+    <div class="levelbar" id="quiz-level"></div>
+    <div id="quiz-box"></div>
+    <div class="progress" id="quiz-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>✅ 2. Vero o falso</h2>
+    <p class="lead">Leggi la frase e tocca Vero o Falso. Dopo ti dico perché.</p>
+    <div class="levelbar" id="vf-level"></div>
+    <div id="vf-box"></div>
+    <div class="progress" id="vf-prog"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 3. Abbina</h2>
+    <p class="lead">Tocca una casella a sinistra, poi la sua coppia a destra. Collega tutte le coppie!</p>
+    <div class="levelbar" id="abbina-level"></div>
+    <div class="match-grid" id="abbina-grid"></div>
+    <div class="progress" id="abbina-prog"></div>
+  </div>
+</div>
+<script>
+window.ALLENAMENTO = {"quiz": [[{"q": "Che carica ha il protone?", "opts": ["positiva", "negativa", "nessuna"]}, {"q": "Che carica ha il neutrone?", "opts": ["nessuna", "positiva", "negativa"]}, {"q": "Che carica ha l'elettrone?", "opts": ["negativa", "positiva", "nessuna"]}, {"q": "Dove stanno protoni e neutroni?", "opts": ["nel nucleo", "intorno al nucleo", "fuori dall'atomo"]}, {"q": "Dove stanno gli elettroni?", "opts": ["intorno al nucleo", "nel nucleo", "dentro i protoni"]}], [{"q": "Perché un atomo è neutro?", "opts": ["protoni ed elettroni sono lo stesso numero", "non ha protoni", "ha solo neutroni"]}, {"q": "Che cos'è il numero atomico Z?", "opts": ["il numero di protoni", "il numero di neutroni", "protoni più neutroni"]}, {"q": "Che cos'è il numero di massa A?", "opts": ["protoni più neutroni", "il numero di elettroni", "il numero di protoni"]}, {"q": "Quale particella è la più leggera?", "opts": ["l'elettrone", "il protone", "il neutrone"]}, {"q": "Che cosa dice Z?", "opts": ["di quale elemento si tratta", "quanto pesa l'atomo", "quanti ioni ci sono"]}], [{"q": "A = 12 e Z = 6: quanti neutroni?", "opts": ["6", "18", "12"]}, {"q": "A = 23 e Z = 11: quanti neutroni?", "opts": ["12", "34", "11"]}, {"q": "Che cosa sono gli isotopi?", "opts": ["atomi dello stesso elemento con neutroni diversi", "atomi con elettroni in più", "atomi senza nucleo"]}, {"q": "Un atomo perde un elettrone: diventa...", "opts": ["uno ione positivo", "uno ione negativo", "un isotopo"]}, {"q": "Come si chiama uno ione negativo?", "opts": ["anione", "catione", "isotopo"]}]], "vf": [[{"q": "Il protone è positivo.", "v": true, "perche": "P come positivo."}, {"q": "Il neutrone è negativo.", "v": false, "perche": "Il neutrone non ha carica: è neutro."}, {"q": "Gli elettroni stanno nel nucleo.", "v": false, "perche": "Stanno intorno al nucleo."}, {"q": "Quasi tutta la massa dell'atomo sta nel nucleo.", "v": true, "perche": "L'elettrone è leggerissimo."}, {"q": "Un atomo normale è neutro.", "v": true, "perche": "Protoni ed elettroni si pareggiano."}], [{"q": "Z è il numero di protoni.", "v": true, "perche": "È la carta d'identità dell'elemento."}, {"q": "A è il numero di elettroni.", "v": false, "perche": "A è protoni più neutroni."}, {"q": "Tutti gli atomi con 6 protoni sono carbonio.", "v": true, "perche": "Z = 6 vuol dire carbonio."}, {"q": "L'ossigeno ha 8 protoni e 8 elettroni.", "v": true, "perche": "Z = 8 e l'atomo è neutro."}, {"q": "L'elettrone pesa come un protone.", "v": false, "perche": "È quasi 2000 volte più leggero."}], [{"q": "Neutroni = A meno Z.", "v": true, "perche": "Si può usare la calcolatrice."}, {"q": "Il carbonio 12 e il carbonio 14 sono isotopi.", "v": true, "perche": "Stessi protoni, neutroni diversi."}, {"q": "Negli isotopi cambia la Z.", "v": false, "perche": "Cambia la A: la Z resta uguale."}, {"q": "Un atomo che prende elettroni diventa uno ione positivo.", "v": false, "perche": "Diventa negativo: ha più elettroni."}, {"q": "Un catione è uno ione positivo.", "v": true, "perche": "Ha perso elettroni."}]], "abbina": [[{"l": "Protone", "r": "positivo"}, {"l": "Neutrone", "r": "neutro"}, {"l": "Elettrone", "r": "negativo"}, {"l": "Nucleo", "r": "protoni e neutroni"}, {"l": "Intorno", "r": "elettroni"}], [{"l": "Z", "r": "numero di protoni"}, {"l": "A", "r": "protoni più neutroni"}, {"l": "H", "r": "Z = 1"}, {"l": "C", "r": "Z = 6"}, {"l": "O", "r": "Z = 8"}], [{"l": "Isotopi", "r": "neutroni diversi"}, {"l": "Ione", "r": "elettroni in più o in meno"}, {"l": "Catione", "r": "ione positivo"}, {"l": "Anione", "r": "ione negativo"}, {"l": "A meno Z", "r": "neutroni"}]]};
+</script>
+<script src="allenamento.js"></script>
+<script>
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./service-worker.js'); }
+</script>
+</body>
+</html>

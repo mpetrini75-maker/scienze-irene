@@ -1,4 +1,4 @@
-const CACHE = 'scienze-irene-v1';
+const CACHE = 'scienze-irene-v2';
 
 const ASSETS = [
   './',
@@ -14,6 +14,11 @@ const ASSETS = [
   './icon-180.png',
   './icon-192.png',
   './icon-512.png',
+  './atomo-allenamento.html',
+  './atomo.html',
+  './piano-chimica.html',
+  './teorie-atomiche-allenamento.html',
+  './teorie-atomiche.html',
   './index.html',
   './interazioni-allenamento.html',
   './interazioni.html',
