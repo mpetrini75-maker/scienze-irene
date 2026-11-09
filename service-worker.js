@@ -1,7 +1,10 @@
-const CACHE = 'scienze-irene-v3';
+const CACHE = 'scienze-irene-v4';
 
 const ASSETS = [
   './',
+  './acqua.html',
+  './macromolecole.html',
+  './piano-biologia-novembre.html',
   './alert.js',
   './allenamento.js',
   './app.js',

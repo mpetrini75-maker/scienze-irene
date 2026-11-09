@@ -14,7 +14,8 @@ R = Path(__file__).resolve().parent.parent
 AUDIO = R / "audio"
 VOCE = "it-IT-ElsaNeural"   # provino "tre" scelto da Marco il 03/10: piu' veloce e piu' acuta, da ragazzina sveglia
 RATE, PITCH = "+0%", "+15Hz"   # era +20%: Marco il 04/10 "troppo veloce", rallentata come in Tedesco
-LEZIONI = ["viventi", "ecosistemi", "energia", "biomi", "interazioni", "popolazioni", "piano-biologia", "teorie-atomiche", "atomo", "piano-chimica"]
+LEZIONI = ["viventi", "ecosistemi", "energia", "biomi", "interazioni", "popolazioni", "piano-biologia", "teorie-atomiche", "atomo", "piano-chimica",
+           "acqua", "macromolecole", "piano-biologia-novembre"]
 EMOJI = re.compile("[\U0001F000-\U0001FAFF☀-➿⬀-⯿️‍]")
 
 

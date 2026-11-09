@@ -35,7 +35,8 @@ for f in sorted(servono - in_sw):
 
 # ogni riquadro con titolo (tranne data-no-voce) delle lezioni deve avere la sua registrazione
 n_audio = 0
-for slug in ("viventi", "ecosistemi", "energia", "biomi", "interazioni", "popolazioni", "piano-biologia"):
+for slug in ("viventi", "ecosistemi", "energia", "biomi", "interazioni", "popolazioni", "piano-biologia",
+             "acqua", "macromolecole", "piano-biologia-novembre"):
     t = (R / f"{slug}.html").read_text(encoding="utf-8")
     # 11/10/2026: anche i riquadri con altri attributi (es. data-c="pirati") contano
     cards = re.findall(r'<div class="card"([^>]*)>\s*<h2>', t)
